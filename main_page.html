@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Calculator</title>
+    <link rel="stylesheet" href="stylesheet.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.0.0/math.min.js"></script>
+</head>
+
+<body>
+    <script src="script.js"></script>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-calculator"></i> Advanced Calculator</h1>
+            <p>Comprehensive tool for mathematical calculations</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="basic">Basic Operations</button>
+            <button class="tab-btn" data-tab="linear">Linear Equation</button>
+            <button class="tab-btn" data-tab="quadratic">Quadratic Equation</button>
+            <button class="tab-btn" data-tab="first-deriv">First Derivative</button>
+            <button class="tab-btn" data-tab="second-deriv">Second Derivative</button>
+            <button class="tab-btn" data-tab="credits">Add Credits</button>
+        </div>
+
+        <div class="credits-info">
+            <p>Available Credits: <span id="credits-display">10</span></p>
+        </div>
+
+        <!-- Basic Operations Tab -->
+        <div class="tab-content active" id="basic">
+            <h2><i class="fas fa-calculator"></i> Basic Operations</h2>
+            <form>
+                <div class="input-group">
+                    <input type="number" id="num1" placeholder="First number" required>
+                    <select id="basic-operation">
+                        <option value="add">+ (Addition)</option>
+                        <option value="subtract">- (Subtraction)</option>
+                        <option value="multiply">× (Multiplication)</option>
+                        <option value="divide">÷ (Division)</option>
+                    </select>
+                    <input type="number" id="num2" placeholder="Second number" required>
+                </div>
+                <button type="submit" class="calculate-btn">Calculate <i class="fas fa-equals"></i></button>
+            </form>
+            <div class="result">
+                <h3>Result:</h3>
+                <p id="basic-result">--</p>
+            </div>
+        </div>
+
+        <!-- Linear Equation Tab -->
+        <div class="tab-content" id="linear">
+            <h2><i class="fas fa-chart-line"></i> Linear Equation Solver</h2>
+            <form>
+                <div class="equation-input">
+                    <input type="number" id="linear-a" placeholder="a" required>
+                    <span>x +</span>
+                    <input type="number" id="linear-b" placeholder="b" required>
+                    <span>= 0</span>
+                </div>
+                <button type="submit" class="calculate-btn">Calculate <i class="fas fa-equals"></i></button>
+            </form>
+            <div class="result">
+                <h3>Solution:</h3>
+                <p id="linear-result">--</p>
+            </div>
+        </div>
+
+        <!-- Quadratic Equation Tab -->
+        <div class="tab-content" id="quadratic">
+            <h2><i class="fas fa-chart-parabola"></i> Quadratic Equation Solver</h2>
+            <form>
+                <div class="equation-input">
+                    <input type="number" id="quad-a" placeholder="a" required>
+                    <span>x² +</span>
+                    <input type="number" id="quad-b" placeholder="b" required>
+                    <span>x +</span>
+                    <input type="number" id="quad-c" placeholder="c" required>
+                    <span>= 0</span>
+                </div>
+                <button type="submit" class="calculate-btn">Calculate <i class="fas fa-equals"></i></button>
+            </form>
+            <div class="result">
+                <h3>Solutions:</h3>
+                <p id="quadratic-result">--</p>
+            </div>
+        </div>
+
+        <!-- First Derivative Tab -->
+        <div class="tab-content" id="first-deriv">
+            <h2><i class="fas fa-function"></i> First Derivative</h2>
+            <form>
+                <div class="equation-input">
+                    <span>f(x) =</span>
+                    <input type="text" id="first-deriv-fx" placeholder="Enter function (e.g., x^2 + 3x - 5)" required>
+                </div>
+                <button type="submit" class="calculate-btn">Calculate <i class="fas fa-equals"></i></button>
+            </form>
+            <div class="result">
+                <h3>First Derivative:</h3>
+                <p id="first-deriv-result">--</p>
+            </div>
+        </div>
+
+        <!-- Second Derivative Tab -->
+        <div class="tab-content" id="second-deriv">
+            <h2><i class="fas fa-function"></i> Second Derivative</h2>
+            <form>
+                <div class="equation-input">
+                    <span>f(x) =</span>
+                    <input type="text" id="second-deriv-fx" placeholder="Enter function (e.g., x^3 - 2x^2 + x)"
+                        required>
+                </div>
+                <button type="submit" class="calculate-btn">Calculate <i class="fas fa-equals"></i></button>
+            </form>
+            <div class="result">
+                <h3>Second Derivative:</h3>
+                <p id="second-deriv-result">--</p>
+            </div>
+        </div>
+
+        <!-- Credits Tab -->
+        <div class="tab-content" id="credits">
+            <h2><i class="fas fa-credit-card"></i> Add Credits</h2>
+
+            <div class="credit-warning" id="low-credit-warning" style="display: none;">
+                <i class="fas fa-exclamation-triangle"></i>
+                You're out of credits! Add more to continue using paid features.
+            </div>
+
+            <div class="credits-container">
+                <div class="credits-balance">
+                    <h3>Your Current Credits:</h3>
+                    <p id="current-credits">10</p>
+                </div>
+
+                <div class="payment-form">
+                    <h3>Purchase 50 Credits ($5.00)</h3>
+
+                    <div class="form-group">
+                        <label for="card-number">Card Number</label>
+                        <input type="text" id="card-number" placeholder="1234 5678 9012 3456" maxlength="19"
+                            pattern="[0-9\s]{13,19}">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="expiry-date">Expiry Date</label>
+                            <input type="text" id="expiry-date" placeholder="MM/YY" maxlength="5" pattern="\d{2}/\d{2}">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cvv">CVV</label>
+                            <input type="text" id="cvv" placeholder="123" maxlength="3" pattern="\d{3}">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="card-name">Name on Card</label>
+                        <input type="text" id="card-name" placeholder="John Doe">
+                    </div>
+
+                    <button id="process-payment" class="calculate-btn">
+                        <i class="fas fa-lock"></i> Pay $5.00 for 50 Credits
+                    </button>
+
+                    <div class="payment-security">
+                        <i class="fas fa-shield-alt"></i> Secure SSL encrypted payment processing
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2025 Advanced Calculator. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+
+</html>

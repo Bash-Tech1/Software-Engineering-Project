@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "mathjs": "^14.4.0"
+  },
+  "devDependencies": {
+    "cypress": "^14.3.0"
+  }
+}
