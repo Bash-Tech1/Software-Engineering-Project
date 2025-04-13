@@ -2,7 +2,7 @@
 
 describe('Advanced Calculator Tests', () => {
   beforeEach(() => {
-    cy.visit('') // ill deploy then put the link 
+    cy.visit('https://software-engineering-calc-project.netlify.app/') // ill deploy then put the link 
     cy.window().its('calculatorInstance').should('exist')
   })
 
@@ -66,28 +66,50 @@ describe('Advanced Calculator Tests', () => {
 
   describe('Paid Features Tests', () => {
     it('should handle derivative calculations with credits', () => {
-      // Test first derivative with insufficient credits
-      cy.get('[data-tab="first-deriv"]').click()
-      cy.get('#first-deriv-fx').type('x^2 + 3x')
-      cy.get('#first-deriv button[type="submit"]').click()
-      cy.get('#first-deriv-result').should('contain', 'Insufficient credits')
+      // Ensure credits are 0
+      cy.window().then(win => {
+        win.localStorage.setItem('user_credits', '0');
+        win.updateCreditsDisplay();
+      });
 
-      // Add credits
-      cy.addCredits()
+      // Go to first derivative tab
+      cy.get('[data-tab="first-deriv"]').click();
+      cy.get('#first-deriv-fx').clear().type('x^2 + 3x');
+      cy.get('#first-deriv button[type="submit"]').click();
 
-      // Test first derivative
-      cy.get('[data-tab="first-deriv"]').click()
-      cy.get('#first-deriv-fx').type('x^2 + 3x')
-      cy.get('#first-deriv button[type="submit"]').click()
-      cy.get('#first-deriv-result').should('contain', '2x + 3')
+      // Check for credit warning
+      cy.get('#first-deriv-result').should('contain', 'Insufficient credits');
+
+      // Should redirect to credits tab
+      cy.get('#credits').should('have.class', 'active');
+
+      // Add credits using payment form
+      cy.get('#card-number').type('4242 4242 4242 4242');
+      cy.get('#expiry-date').type('1225');
+      cy.get('#cvv').type('123');
+      cy.get('#card-name').type('John Doe');
+      cy.get('#process-payment').click();
+
+      // Wait for fake payment processing
+      cy.wait(2500);
+
+      // Verify credits updated
+      cy.get('#credits-display').should('contain', '50');
+
+      // Test first derivative again
+      cy.get('[data-tab="first-deriv"]').click();
+      cy.get('#first-deriv-fx').clear().type('x^2 + 3x');
+      cy.get('#first-deriv button[type="submit"]').click();
+      cy.get('#first-deriv-result').should('contain', '2x + 3');
 
       // Test second derivative
-      cy.get('[data-tab="second-deriv"]').click()
-      cy.get('#second-deriv-fx').type('x^3 - 2x^2 + x')
-      cy.get('#second-deriv button[type="submit"]').click()
-      cy.get('#second-deriv-result').should('contain', '6x - 4')
-    })
-  })
+      cy.get('[data-tab="second-deriv"]').click();
+      cy.get('#second-deriv-fx').clear().type('x^3 - 2x^2 + x');
+      cy.get('#second-deriv button[type="submit"]').click();
+      cy.get('#second-deriv-result').should('contain', '6x - 4');
+    });
+  });
+
 
   describe('Payment System Tests', () => {
     it('should validate payment form', () => {
@@ -99,7 +121,7 @@ describe('Advanced Calculator Tests', () => {
       cy.get('#cvv').type('1')
       cy.get('#card-name').type('A')
       cy.get('#process-payment').click()
-      cy.contains('Please enter a valid 16-digit').should('exist')
+      cy.get('#payment-errors').should('contain', 'Please enter a valid 16-digit card number');
       cy.contains('valid expiry date').should('exist')
       cy.contains('valid 3-digit CVV').should('exist')
       cy.contains('name on your card').should('exist')

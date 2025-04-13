@@ -124,7 +124,7 @@
             </div>
         </div>
 
-        <!-- Credits Tab -->
+        <!-- Update this part in your main_page.html -->
         <div class="tab-content" id="credits">
             <h2><i class="fas fa-credit-card"></i> Add Credits</h2>
 
@@ -141,6 +141,10 @@
 
                 <div class="payment-form">
                     <h3>Purchase 50 Credits ($5.00)</h3>
+
+                    <!-- Error container - modified to show/hide properly -->
+                    <div id="payment-errors" class="payment-errors" style="display: none;"></div>
+
 
                     <div class="form-group">
                         <label for="card-number">Card Number</label>
@@ -175,11 +179,6 @@
                 </div>
             </div>
         </div>
-
-        <footer>
-            <p>© 2025 Advanced Calculator. All rights reserved.</p>
-        </footer>
-    </div>
 </body>
 
 </html>

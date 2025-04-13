@@ -372,3 +372,79 @@ footer {
         transform: rotate(359deg);
     }
 }
+
+/* Add this to your stylesheet.css */
+.credit-warning {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background-color: #fff5f5;
+    border-radius: var(--border-radius);
+    border-left: 4px solid var(--warning-color);
+    color: var(--warning-color);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.credit-warning i {
+    font-size: 1.2rem;
+}
+
+/* Add this to your stylesheet.css */
+.credit-warning {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background-color: #fff5f5;
+    border-radius: var(--border-radius);
+    border-left: 4px solid var(--warning-color);
+    color: var(--warning-color);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.credit-warning i {
+    font-size: 1.2rem;
+}
+
+/* Add these styles to your stylesheet.css */
+.payment-errors {
+    margin: 1rem 0;
+    padding: 0.8rem;
+    border-radius: var(--border-radius);
+    border-left: 4px solid var(--warning-color);
+    background-color: #fff5f5;
+}
+
+.error-message {
+    color: var(--warning-color);
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.success-message {
+    color: var(--success-color);
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.credit-warning {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background-color: #fff5f5;
+    border-radius: var(--border-radius);
+    border-left: 4px solid var(--warning-color);
+    color: var(--warning-color);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.credit-warning i {
+    font-size: 1.2rem;
+}

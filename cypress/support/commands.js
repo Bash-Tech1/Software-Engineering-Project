@@ -23,3 +23,25 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+// Create a new file: cypress/support/commands.js (if it doesn't exist)
+
+// Custom command to add credits through the payment form
+Cypress.Commands.add('addCredits', () => {
+    // Navigate to the credits tab
+    cy.get('[data-tab="credits"]').click();
+
+    // Fill in payment information
+    cy.get('#card-number').type('4242 4242 4242 4242');
+    cy.get('#expiry-date').type('1225');
+    cy.get('#cvv').type('123');
+    cy.get('#card-name').type('John Doe');
+
+    // Submit payment
+    cy.get('#process-payment').click();
+
+    // Wait for fake payment processing
+    cy.wait(2500);
+});
+
+// Import commands.js in your cypress/support/e2e.js or cypress/support/index.js file
+// Add: import './commands'
